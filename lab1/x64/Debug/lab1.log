@@ -1,3 +1,0 @@
-﻿  Main.cpp
-D:\Repositories\operenv-syspro\lab1\Main.cpp(86,16): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
-  lab1.vcxproj -> D:\Repositories\operenv-syspro\lab1\x64\Debug\lab1.exe
