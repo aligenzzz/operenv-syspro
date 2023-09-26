@@ -51,7 +51,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR cmdLine, int nCmd
 	int x = (screenWidth - WIDTH) / 2;
 	int y = (screenHeight - HEIGHT) / 2;
 	
-	//We use WS_EX_LAYERED and WS_POPUP to obtain the desired effect
 	HWND windowHandle = CreateWindowEx(WS_EX_LAYERED,
 		ClassName,
 		NULL, // without title
@@ -116,8 +115,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			HDC hdc = BeginPaint(hwnd, &ps);
 			DrawGradientCircle(hdc, 180, 170, 100);
 			EndPaint(hwnd, &ps);
+
+			break;
 		}
-		break;
 
 		// if mouse click
 		case WM_NCHITTEST:
