@@ -25,38 +25,29 @@ struct ThreadData
 
 void ReadFileLine(ifstream& input, ThreadData* threadData, int line)
 {
-    int numLines = (int) threadData->lines.size();
-    for (int i = 0; i < numLines; i++) 
+    threadData->data.clear();
+
+    string lineContent;
+    getline(input, lineContent);
+
+    if (lineContent == "") return;
+
+    // splitting
+    auto ptr = new char;
+    char* char_array = new char[lineContent.length() + 1];
+    strcpy_s(char_array, lineContent.length() + 1, lineContent.c_str());
+    char* token = strtok_s(char_array, " ", &ptr);
+    while (token != NULL)
     {
-        string line;
-        getline(input, line);
+        double num = stof(token);
 
-        // splitting
-        auto ptr = new char;
-        char* char_array = new char[line.length() + 1];
-        strcpy_s(char_array, line.length() + 1, line.c_str());
-        char* token = strtok_s(char_array, " ", &ptr);
-        while (token != NULL)
-        {
-            try
-            {
-                double num = stof(token);
+        if (num > 0)
+            threadData->data.push_back(num);
 
-                if (num > 0)
-                    threadData->data.push_back(num);
-            }
-            catch (const std::invalid_argument& e)
-            {
-            }
-            catch (const std::out_of_range& e)
-            {
-            }
-
-            token = strtok_s(NULL, " ", &ptr);
-        }
-
-        delete[] char_array;
+        token = strtok_s(NULL, " ", &ptr);
     }
+
+    delete[] char_array;
 }
 
 void SortThread(ThreadData* threadData)
@@ -141,7 +132,7 @@ int main()
     {
         for (int j = 0; j < arraySize; ++j)
             inputFile << rand() % 1000 << ' ';
-        inputFile << endl;
+        inputFile << '\n';
     }
     inputFile.close();
 
