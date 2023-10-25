@@ -19,7 +19,7 @@ struct ThreadData
 
 void SortThread(ThreadData* threadData) 
 {
-    auto start_time = std::chrono::high_resolution_clock::now();
+    auto start_time = chrono::high_resolution_clock::now();
 
     unique_lock<mutex> lock1(mtx);
     cout << "Thread " << threadData->id << " is not ready." << endl;
@@ -47,14 +47,14 @@ void SortThread(ThreadData* threadData)
     cout << "Thread " << threadData->id << " is ready." << endl;
     lock2.unlock();
 
-    auto end_time = std::chrono::high_resolution_clock::now();
+    auto end_time = chrono::high_resolution_clock::now();
 
     threadData->ready = true;
 
     chrono::duration<double> elapsed_time = end_time - start_time;
 
     unique_lock<mutex> lock3(mtx);
-    cout << "Thread " << threadData->id << " completed in " << elapsed_time.count() << " seconds.\n";
+    cout << "Thread " << threadData->id << " completed in " << elapsed_time.count() << " seconds." << endl;
     lock3.unlock();
 }
 
@@ -84,7 +84,7 @@ int main()
     for (int i = 0; i < numThreads; i++) 
     {
         threadDataArray[i].id = i + 1;
-        threadDataArray[i].data = std::vector<int>(
+        threadDataArray[i].data = vector<int>(
             arrayToSort.begin() + i * fragmentSize,
             arrayToSort.begin() + (i + 1) * fragmentSize
         );
@@ -93,7 +93,7 @@ int main()
         threads[i] = thread(SortThread, &threadDataArray[i]);
     }
 
-    std::cout << "Sorting array fragments with " << numThreads << " threads started." << endl;
+    cout << "Sorting array fragments with " << numThreads << " threads started." << endl;
 
     for (std::thread& thread : threads)
         thread.join();
