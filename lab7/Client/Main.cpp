@@ -10,7 +10,7 @@ const int BUFFER_LENGTH = 2048;
 
 void Receive(void* param)
 {
-	while (1)
+	while (true)
 	{
 		SOCKET clientSocket = *(SOCKET*)(param);
 		char receivingBuffer[BUFFER_LENGTH] = {};	
@@ -24,7 +24,7 @@ void Receive(void* param)
 
 void Send(void* param)
 {
-	while (1)
+	while (true)
 	{
 		SOCKET clientSocket = *(SOCKET*)(param);
 		char sendingBuffer[BUFFER_LENGTH] = {};
